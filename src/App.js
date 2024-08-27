@@ -1,19 +1,24 @@
 import { Container } from "react-bootstrap";
 import { tables, updateTables } from './redux/tablesRedux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchTables } from './redux/tablesRedux';
 import { useEffect } from "react";
+import TableInfo from "./components/tableInfo";
+import { Routes, Route } from 'react-router-dom';
+import Home from "./components/home";
+import TableForm from "./components/tableForm";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => dispatch(fetchTables()), [dispatch]);
 
   return (
     <Container>
-      <h1>Hey! Hello in waiter-app 2024!</h1>
+      <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/form/:tableId" element={<TableForm />} />
+        </Routes>
     </Container>
   );
 }
+
 
 export default App;

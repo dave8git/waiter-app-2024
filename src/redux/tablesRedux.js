@@ -1,18 +1,18 @@
 import shortid from 'shortid';
-import { updateTables } from './redux/tableRedux';
 import thunk from 'redux-thunk';
 
 // selectors 
 
 // action names
+const createActionName = name => `app/tables/${name}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 
 // action creators 
 export const updateTables = payload => ({type: UPDATE_TABLES, payload});
 
-const fetchTables = () => { 
+export const fetchTables = () => { 
     return (dispatch) => {
-        fetch('http://localhost:3131/api/books')
+        fetch('http://localhost:3131/api/tables')
         .then(res => res.json())
         .then(tables => dispatch(updateTables(tables)));
     }
@@ -28,11 +28,11 @@ export const addTableRequest = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(???),
+                body: JSON.stringify({}),
             };
 
-            fetch ('http://localhost:3131/api/tables', options) // nie wiem czy tu ma być api table czy tylko tables
-                .then(() => dispatch(addBook(???)))
+            fetch ('http://localhost:3131/api/tables', options) // ma być zawsze tables, nawet gdyby dane jednego stolika były pobierane to (...)/tables/tableId
+                .then(() => dispatch())
         }
     }
 }
@@ -40,7 +40,9 @@ export const addTableRequest = () => {
 const reducer = (statePart = [], action) => {
     switch(action.type) {
         case UPDATE_TABLES: 
+        console.log(action.payload);
             return [...action.payload]
+            // return []
         default: 
             return statePart
     }
