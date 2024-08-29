@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Badge, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const TableInfo = ({ id, status, people, maxPeopleAmount, bill }) => {
+const TableInfo = ({ id, status, people, maxPeople, bill }) => {
 
   const navigate = useNavigate(); 
   
@@ -35,10 +35,10 @@ const TableInfo = ({ id, status, people, maxPeopleAmount, bill }) => {
       <strong>People:</strong> {people}
     </Col>
     <Col xs={3} className="text-center">
-      <strong>Max Capacity:</strong> {maxPeopleAmount}
+      <strong>Max Capacity:</strong> {maxPeople}
     </Col>
     <Col xs={2} className="text-end">
-      {bill && <strong>Bill:</strong>} {bill && `$${bill.toFixed(2)}`}
+      {bill !== 0 && <strong>Bill:</strong>} {bill && `$${bill.toFixed(2)}`}
     </Col>
     <Col xs={2} className="text-end">
       <Button variant="primary" onClick={onButtonClick}>
