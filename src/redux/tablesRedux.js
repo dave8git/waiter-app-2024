@@ -3,9 +3,8 @@ import thunk from 'redux-thunk';
 
 // selectors 
 export function getTable(state, tableId) {
-    console.log('state', state);
-    console.log('tableId', tableId);
-    return state.tables.find(table => table.id === parseInt(tableId));
+    const table = state.tables.find(table => table.id == tableId);
+    return table;
 };
 
 // action names
@@ -46,8 +45,8 @@ export const addTableRequest = () => {
 const reducer = (statePart = [], action) => {
     switch (action.type) {
         case UPDATE_TABLES:
+            console.log('action.payload', action.payload);
             console.log('update tables runs once');
-            console.log(action.payload);
             return [...action.payload]
         // return []
         default:

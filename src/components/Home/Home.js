@@ -5,10 +5,6 @@ import TableInfo from "../TableInfo/TableInfo";
 
 
 function Home() {
-    const dispatch = useDispatch();
-
-    useEffect(() => dispatch(fetchTables()), [dispatch]);
-
     const tables = useSelector(state => state.tables);
 
     return (

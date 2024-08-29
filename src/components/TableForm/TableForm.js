@@ -16,15 +16,15 @@ const TableForm = ({ }) => {
 
     const dispatch = useDispatch(); 
 
-    const tables = useSelector(state => getTable(state, tableId));
-
-    console.log('book', tables);
-    const peopleCount = useSelector(state => state.peopleCount);
-
-    console.log(tableId);
     const handleUpdate = () => {
         // console.log({ status, person, bill, peopleCount });
     }
+
+    const table = useSelector(state => getTable(state, tableId));
+    console.log('table 2', table);
+    // if (!table) {
+    //     return <div>Loading...</div>; // Show a loading indicator or a placeholder
+    // }
 
     return (
         <>
