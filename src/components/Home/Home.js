@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTables } from "../redux/tablesRedux";
+import { fetchTables } from "../../redux/tablesRedux";
 import { useEffect } from "react";
-import TableInfo from "../components/tableInfo";
+import TableInfo from "../TableInfo/TableInfo";
 
 
 function Home() {
