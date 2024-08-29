@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { addTableRequest } from '../../redux/tablesRedux';
 import { useParams } from 'react-router-dom';
 import { Form, Row, Card, Col, DropdownButton, Dropdown, InputGroup, Button } from 'react-bootstrap';
@@ -22,9 +23,20 @@ const TableForm = ({ }) => {
 
     const table = useSelector(state => getTable(state, tableId));
     console.log('table 2', table);
-    // if (!table) {
-    //     return <div>Loading...</div>; // Show a loading indicator or a placeholder
-    // }
+
+    useEffect(() => {
+        if (table) {
+            setStatus(table.status || '');
+            setPeople(table.people || '');
+            setMaxPeopleAmount(table.maxPeople || '');
+            setBill(table.bill || '');
+        }
+    }, [table]);
+
+
+    if (!table) {
+        return <div>Loading...</div>; // Show a loading indicator or a placeholder
+    }
 
     return (
         <>
@@ -35,13 +47,16 @@ const TableForm = ({ }) => {
                         <Form.Label className="pt-1"><Card.Title>Status:</Card.Title></Form.Label>
                     </Col>
                     <Col xs={3}>
-                        <Form.Select aria-label="Default select example">
+                        <Form.Select 
+                            aria-label="Default select example"
+                            value={status}
+                            onChange={e => setStatus(e.target.value)}
+                        >
                             <option>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </Form.Select>
-
                     </Col>
                 </Row>
                 <Row className="align-items-center mb-2">
@@ -50,7 +65,10 @@ const TableForm = ({ }) => {
                     </Col>
                     <Col xs="auto" className="px-0" style={{ width: '40px' }}>
                         <Form.Control
-
+                             className="form-control-sm" 
+                             type="number" 
+                             value={people}    
+                             placeholder="people" 
                         />
                     </Col>
                     <Col xs="auto" className="d-flex align-items-center">
@@ -59,9 +77,10 @@ const TableForm = ({ }) => {
                     <Col xs="auto" className="px-0" style={{ width: '40px' }}>
                         <Form.Control
 
-                        // className="form-control-sm" 
-                        // type="number" 
-                        // placeholder="max" 
+                        className="form-control-sm" 
+                        type="number" 
+                        value={maxPeopleAmount}    
+                        placeholder="max" 
                         />
                     </Col>
                 </Row>
@@ -74,10 +93,10 @@ const TableForm = ({ }) => {
                     </Col>
                     <Col xs="auto" className="px-0" style={{ width: '40px' }}>
                         <Form.Control
-
-                        // className="form-control-sm" 
-                        // type="number" 
-                        // placeholder="max" 
+                        className="form-control-sm" 
+                        type="number" 
+                        value={bill}
+                        placeholder="max" 
                         />
                     </Col>
                 </Row>
