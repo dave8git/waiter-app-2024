@@ -42,7 +42,7 @@ const TableInfo = ({ id, status, people, maxPeople, bill }) => {
     </Col>
     <Col xs={2} className="text-end">
       <Button variant="primary" onClick={onButtonClick}>
-        Edit table!
+        Edit table
       </Button>
     </Col>
   </Row>
