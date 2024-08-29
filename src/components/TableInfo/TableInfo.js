@@ -10,11 +10,25 @@ const TableInfo = ({ id, status, people, maxPeopleAmount, bill }) => {
     navigate(`/form/${id}`);
   }
 
+  const getBadgeColor = (status) => {
+    console.log(status);
+    switch (status) {
+      case 'Busy':
+        return 'danger';
+      case 'Reserved':
+        return 'warning';
+      case 'Cleaning':
+        return 'info';
+      case 'Free': 
+        return 'success';
+    }
+  }
+
   return (
     <Row className="align-items-center p-3 border rounded bg-light shadow-sm">
     <Col xs={3}>
       <h5>
-        <Badge bg={status === 'Occupied' ? 'danger' : 'success'}>{status}</Badge>
+        <Badge bg={getBadgeColor(status)}>{status}</Badge>
       </h5>
     </Col>
     <Col xs={2} className="text-center">

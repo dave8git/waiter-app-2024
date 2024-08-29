@@ -10,17 +10,21 @@
       },
       {
         "id": "2",
-        "status": "Reserved",
-        "people": 1,
+        "status": "Free",
+        "people": 0,
         "maxPeople": 2,
         "bill": 3
       },
       {
-        "id": "3"
+        "id": "3",
+        "status": "Busy",
+        "people": 5,
+        "maxPeople": 5,
+        "bill": 25
       },
       {
         "id": "4",
-        "status": "Reserved",
+        "status": "Cleaning",
         "people": 5,
         "maxPeople": 5,
         "bill": 25
