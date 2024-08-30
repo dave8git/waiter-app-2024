@@ -10,9 +10,11 @@ export function getTable(state, tableId) {
 // action names
 const createActionName = name => `app/tables/${name}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
+const EDIT_TABLE = createActionName('EDIT_TABLE');
 
 // action creators 
 export const updateTables = payload => ({ type: UPDATE_TABLES, payload });
+export const editTable = payload => ({ type: EDIT_TABLE, payload });
 
 
 
@@ -27,18 +29,22 @@ export const fetchTables = () => {
 
 //useEffect(tables, [dispatch]);
 
-export const addTableRequest = () => {
+export const editTableRequest = (tableData) => {
     return (dispatch) => {
         const options = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({}),
+            body: JSON.stringify(tableData),
         };
 
-        fetch('http://localhost:3131/api/tables', options) // ma być zawsze tables, nawet gdyby dane jednego stolika były pobierane to (...)/tables/tableId
-            .then(() => dispatch())
+        fetch(`http://localhost:3131/api/tables/${tableData.id}`, options) // ma być zawsze tables, nawet gdyby dane jednego stolika były pobierane to (...)/tables/tableId
+            .then(res => res.json())
+            .then(updatedTable => {
+                dispatch(editTable(updateTables));
+            })
+            .catch(error => console.error('Error updating table:', error));
     }
 }
 
@@ -49,6 +55,8 @@ const reducer = (statePart = [], action) => {
             console.log('update tables runs once');
             return [...action.payload]
         // return []
+        case EDIT_TABLE: 
+            return statePart.map(table => (table.id === action.payload.id ? {...table, ...action.payload } : table));
         default:
             return statePart
     }

@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { Form, Row, Card, Col, DropdownButton, Dropdown, InputGroup, Button } from 'react-bootstrap';
 import styles from './TableForm.module.scss';
 import { getTable } from '../../redux/tablesRedux';
+import { editTableRequest } from '../../redux/tablesRedux';
 
 const TableForm = ({ }) => {
     const [status, setStatus] = useState('');
@@ -18,6 +19,13 @@ const TableForm = ({ }) => {
     const dispatch = useDispatch(); 
 
     const handleUpdate = () => {
+        dispatch(editTableRequest({
+            id: tableId, 
+            status, 
+            people, 
+            maxPeople: maxPeopleAmount,
+            bill, 
+        }));
         // console.log({ status, person, bill, peopleCount });
     }
 
@@ -41,7 +49,7 @@ const TableForm = ({ }) => {
     return (
         <>
             <div>Table: ${tableId}</div>
-            <Form>
+            <Form onSubmit={handleUpdate}>
                 <Row className="mb-2">
                     <Col xs={1}>
                         <Form.Label className="pt-1"><Card.Title>Status:</Card.Title></Form.Label>
