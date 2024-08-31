@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { addTableRequest } from '../../redux/tablesRedux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Row, Card, Col, DropdownButton, Dropdown, InputGroup, Button } from 'react-bootstrap';
 import styles from './TableForm.module.scss';
 import { getTable } from '../../redux/tablesRedux';
@@ -17,15 +17,25 @@ const TableForm = ({ }) => {
     const { tableId } = useParams();
 
     const dispatch = useDispatch(); 
+    const navigate = useNavigate();
 
-    const handleUpdate = () => {
+    const handleUpdate = (event) => {
+        event.preventDefault(); 
+        console.log('status', status);
+        let updatedPeople = people; 
+        let updatedBill = bill; 
+        if(status == 'Free' || status == 'Cleaning') {
+            updatedPeople = 0;
+            updatedBill = 0;
+        }
         dispatch(editTableRequest({
             id: tableId, 
             status, 
-            people, 
+            people: updatedPeople, 
             maxPeople: maxPeopleAmount,
-            bill, 
+            bill: updatedBill, 
         }));
+        navigate('/')
         // console.log({ status, person, bill, peopleCount });
     }
 
@@ -61,9 +71,10 @@ const TableForm = ({ }) => {
                             onChange={e => setStatus(e.target.value)}
                         >
                             <option>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="Reserved">Reserved</option>
+                            <option value="Free">Free</option>
+                            <option value="Busy">Busy</option>
+                            <option value="Cleaning">Cleaning</option>
                         </Form.Select>
                     </Col>
                 </Row>
@@ -77,6 +88,7 @@ const TableForm = ({ }) => {
                              type="number" 
                              value={people}    
                              placeholder="people" 
+                             onChange={e => setPeople(e.target.value)}
                         />
                     </Col>
                     <Col xs="auto" className="d-flex align-items-center">
@@ -89,6 +101,7 @@ const TableForm = ({ }) => {
                         type="number" 
                         value={maxPeopleAmount}    
                         placeholder="max" 
+                        onChange={e => setMaxPeopleAmount(e.target.value)}
                         />
                     </Col>
                 </Row>
@@ -104,13 +117,14 @@ const TableForm = ({ }) => {
                         className="form-control-sm" 
                         type="number" 
                         value={bill}
-                        placeholder="max" 
+                        placeholder="amount" 
+                        onChange={e => setBill(e.target.value)}
                         />
                     </Col>
                 </Row>
 
 
-                <Button variant="primary" onClick={handleUpdate}>
+                <Button variant="primary" type="submit">
                     Update
                 </Button>
             </Form>

@@ -38,7 +38,7 @@ const TableInfo = ({ id, status, people, maxPeople, bill }) => {
       <strong>Max Capacity:</strong> {maxPeople}
     </Col>
     <Col xs={2} className="text-end">
-      {bill !== 0 && <strong>Bill:</strong>} {bill && `$${bill.toFixed(2)}`}
+      {bill !== 0 && <strong>Bill:</strong>} {bill && `$${bill}`}
     </Col>
     <Col xs={2} className="text-end">
       <Button variant="primary" onClick={onButtonClick}>

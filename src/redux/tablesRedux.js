@@ -51,11 +51,10 @@ export const editTableRequest = (tableData) => {
 const reducer = (statePart = [], action) => {
     switch (action.type) {
         case UPDATE_TABLES:
-            console.log('action.payload', action.payload);
-            console.log('update tables runs once');
             return [...action.payload]
         // return []
         case EDIT_TABLE: 
+            console.log('action.payload', action.payload);
             return statePart.map(table => (table.id === action.payload.id ? {...table, ...action.payload } : table));
         default:
             return statePart
