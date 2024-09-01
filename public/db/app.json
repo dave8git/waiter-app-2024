@@ -23,14 +23,14 @@
     },
     {
       "id": "4",
-      "status": "Reserved",
-      "people": "3",
+      "status": "Free",
+      "people": 0,
       "maxPeople": 5,
-      "bill": "15"
+      "bill": 0
     },
     {
       "id": "5",
-      "status": "Busy",
+      "status": "Reserved",
       "people": 3,
       "maxPeople": 3,
       "bill": "933"
