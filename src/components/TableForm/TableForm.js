@@ -24,9 +24,13 @@ const TableForm = ({ }) => {
         console.log('status', status);
         let updatedPeople = people; 
         let updatedBill = bill; 
+       
         if(status == 'Free' || status == 'Cleaning') {
             updatedPeople = 0;
             updatedBill = 0;
+        }
+        if(people >= maxPeopleAmount) {
+            updatedPeople = maxPeopleAmount;
         }
         dispatch(editTableRequest({
             id: tableId, 
